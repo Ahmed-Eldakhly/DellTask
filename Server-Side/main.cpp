@@ -12,5 +12,5 @@ using namespace std;
 
 // main
 int main() {
-	cout << "Hi Ahmed" << endl;
+	cout << "Server Side" << endl;
 }
