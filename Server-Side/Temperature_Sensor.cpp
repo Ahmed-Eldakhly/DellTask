@@ -16,13 +16,13 @@ void Temperature_Sensor::generateTemperaturePeriodically() {
     
     std::condition_variable cv;
 
-    float newTemp;
+    float newTemperature;
     std::mutex mtx;
-    std::unique_lock<std::mutex> lck(mtx);
+    std::unique_lock<std::mutex> uni_lck(mtx);
 
     while (true) {
-        newTemp = generateTemperature(30, 40);
-        setSensorReading(newTemp);
-        cv.wait_for(lck, std::chrono::seconds(1));
+        newTemperature = generateTemperature(30, 40);
+        setSensorReading(newTemperature);
+        cv.wait_for(uni_lck, std::chrono::seconds(1));
     }
 }
