@@ -1,5 +1,6 @@
 //haders
 #include "Temperature_Sensor.h"
+#include "Temperature_Sensor_Config.h"
 #include <condition_variable>
 
 
@@ -21,8 +22,8 @@ void Temperature_Sensor::generateTemperaturePeriodically() {
     std::unique_lock<std::mutex> uni_lck(mtx);
 
     while (true) {
-        newTemperature = generateTemperature(30, 40);
+        newTemperature = generateTemperature(MIN_TEMPERATURE_SENSOR, MAX_TEMPERATURE_SENSOR);
         setSensorReading(newTemperature);
-        cv.wait_for(uni_lck, std::chrono::seconds(1));
+        cv.wait_for(uni_lck, std::chrono::seconds(PERIODIC_TIME_STEP));
     }
 }

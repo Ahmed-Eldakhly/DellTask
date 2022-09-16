@@ -3,6 +3,7 @@
 
 // headers
 #include "Network_abstract.h"
+#include "Socket_Communication_Config.h"
 #include "string"
 
 // class prototype
@@ -17,9 +18,6 @@ class Socket_Communication : public Network_abstract
     protected:
 
     private:
-        std::string channel;
-        int socketPort;
-        std::string socketIp;
 
         Socket_Communication();
         static Socket_Communication* socketConnectionInstance; 

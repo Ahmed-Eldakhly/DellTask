@@ -1,6 +1,5 @@
 //haders
 #include "Socket_Communication.h"
-#include "Socket_Communication_Config.h"
 #include <iostream>
 #include <string>
 #include "../web-socket/easy-socket-master/include/masesk/EasySocket.hpp"
@@ -10,9 +9,7 @@ using namespace masesk;
 Socket_Communication* Socket_Communication::socketConnectionInstance = nullptr;
 
 Socket_Communication::Socket_Communication() {
-    /* channel = SERVER_CHANNEL;
-    socketPort = SERVER_PORT;
-    socketIp = SERVER_IP; */
+
 }
 
 static void getDataFromClient(std::string& receivedClientData, const std::string& data) {
@@ -30,7 +27,7 @@ bool Socket_Communication::establishConnection() {
     std::string receivedClientData;
     try {
         socketManager.socketListen(SERVER_CHANNEL, SERVER_PORT, &getDataFromClient, receivedClientData);
-        setPayload(receivedClientData);
+        
         return true;
     }
     catch (...) {

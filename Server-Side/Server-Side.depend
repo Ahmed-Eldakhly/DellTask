@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1663318384 source:d:\dell task\server-side\clients.cpp
+	"Clients.h"
+
+1663329172 d:\dell task\server-side\clients.h
+	<string>
+
+1663330810 source:d:\dell task\server-side\data_parser_and_converter.cpp
+	"Data_Parser_And_Converter.h"
+
+1663324043 d:\dell task\server-side\data_parser_and_converter.h
+	<string>
+	<map>
+	<utility>
+	<vector>
+
+1663331166 source:d:\dell task\server-side\main.cpp
+	<iostream>
+	"limits.h"
+	"Temperature_Sensor.h"
+	"Network_abstract.h"
+	"Socket_Communication.h"
+	"Data_Parser_And_Converter.h"
+	"Clients.h"
+	"vector"
+	<map>
+	<string>
+	<thread>
+	<condition_variable>
+	<utility>
+
+1663329172 d:\dell task\server-side\temperature_sensor.h
+	"Sensor.h"
+
+1663306725 d:\dell task\server-side\sensor.h
+	<string>
+	<iostream>
+
+1663278496 d:\dell task\server-side\network_abstract.h
+	<string>
+	<iostream>
+	<map>
+
+1663325657 d:\dell task\server-side\socket_communication.h
+	"Network_abstract.h"
+	"Socket_Communication_Config.h"
+	"string"
+
+1663316158 d:\dell task\server-side\socket_communication_config.h
+
+1663232824 source:d:\dell task\server-side\network_abstract.cpp
+	"Network_abstract.h"
+
+1663301791 source:d:\dell task\server-side\sensor.cpp
+	"Sensor.h"
+
+1663323472 source:d:\dell task\server-side\temperature_sensor.cpp
+	"Temperature_Sensor.h"
+	"Temperature_Sensor_Config.h"
+	<condition_variable>
+
+1663323443 d:\dell task\server-side\temperature_sensor_config.h
+

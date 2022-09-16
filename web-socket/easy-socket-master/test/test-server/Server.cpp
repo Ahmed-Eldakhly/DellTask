@@ -3,12 +3,13 @@
 using namespace std;
 using namespace masesk;
 
-void handleData(const std::string &data) {
+void handleData(const std::string &data , const std::string& y) {
 	cout << "Client sent: " + data << endl;
 }
 
 int main() {
 	EasySocket socketManager;
-	socketManager.socketListen("test", 8080, &handleData);
+	string x;
+	socketManager.socketListen("test", 8080, &handleData , x);
 	return 0;
 }

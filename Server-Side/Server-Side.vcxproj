@@ -120,6 +120,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\Dell Task\web-socket\easy-socket-master</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,7 +140,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Clients.cpp" />
+    <ClCompile Include="Data_Parser_And_Converter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Network_abstract.cpp" />
+    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="Socket_Communication.cpp" />
+    <ClCompile Include="Temperature_Sensor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Clients.h" />
+    <ClInclude Include="Data_Parser_And_Converter.h" />
+    <ClInclude Include="Temperature_Sensor_Config.h" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="Socket_Communication_Config.h" />
+    <ClInclude Include="Network_abstract.h" />
+    <ClInclude Include="Socket_Communication.h" />
+    <ClInclude Include="Temperature_Sensor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

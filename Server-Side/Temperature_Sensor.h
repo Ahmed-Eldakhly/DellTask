@@ -1,5 +1,10 @@
+// gaurd to prevent including file many time.
 #pragma once
+
+// headers
 #include "Sensor.h"
+
+// class prototype
 class Temperature_Sensor : public Sensor
 {
     public:
