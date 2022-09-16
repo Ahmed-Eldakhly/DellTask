@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Clients.cpp">
+    <ClCompile Include="Servers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Data_Parser_And_Converter.cpp">
@@ -30,9 +30,15 @@
     <ClCompile Include="Socket_Communication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Temperature_Server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Clients.h">
+    <ClInclude Include="Servers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Data_Parser_And_Converter.h">
@@ -45,6 +51,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Socket_Communication_Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Temperature_Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Temperature_Server_Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

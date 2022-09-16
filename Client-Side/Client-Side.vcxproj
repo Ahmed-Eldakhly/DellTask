@@ -139,18 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Clients.cpp" />
+    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="Servers.cpp" />
     <ClCompile Include="Data_Parser_And_Converter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Network_abstract.cpp" />
     <ClCompile Include="Socket_Communication.cpp" />
+    <ClCompile Include="Temperature_Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Clients.h" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="Servers.h" />
     <ClInclude Include="Data_Parser_And_Converter.h" />
     <ClInclude Include="Network_abstract.h" />
     <ClInclude Include="Socket_Communication.h" />
     <ClInclude Include="Socket_Communication_Config.h" />
+    <ClInclude Include="Temperature_Server.h" />
+    <ClInclude Include="Temperature_Server_Config.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

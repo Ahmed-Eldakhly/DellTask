@@ -16,6 +16,7 @@ class Socket_Communication : public Network_abstract
   
         void listenToSpecificServer(std::map<std::string, std::string> protocolParameters);
         bool establishConnection(std::map<std::string, std::string> protocolParameters);
+        bool getPayloadFromNetwork();
        
     protected:
 
@@ -23,6 +24,6 @@ class Socket_Communication : public Network_abstract
         Socket_Communication();
         static Socket_Communication* socketConnectionInstance; 
 
-        bool getPayloadFromNetwork();
+        
 };
 
