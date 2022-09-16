@@ -75,6 +75,6 @@ void Socket_Communication::listenToSpecificServer(std::map<std::string, std::str
         }
     }
     if (triersFlag == 5) 
-        std::cout << "The node with channel name : " << serverChannel << " and ip with port : " << serverIp << ":" << serverPort << " is not available now" << std::endl;
+        std::cout << "The node with channel name: " << serverChannel << " and ip with port : " << serverIp << ":" << serverPort << " is not available now" << std::endl;
 }
 
