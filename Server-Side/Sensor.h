@@ -18,11 +18,11 @@ class Sensor
 		float getSensorReading();
 
 	protected:
-
-	private:
 		std::string sensorName;
 		std::string sensorSerialNumber;
 		std::string sensorType;
 		float sensorReading;
+	private:
+
 };
 
