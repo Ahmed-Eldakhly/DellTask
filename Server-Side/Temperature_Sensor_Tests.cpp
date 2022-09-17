@@ -3,10 +3,18 @@
 #include "Temperature_Sensor.h"
 #include "../gtest/gtest.h"
 
+/// <summary>
+/// 
+/// </summary>
 Temperature_Sensor_Tests::Temperature_Sensor_Tests() {
 	RUN_ALL_TESTS();
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
 TEST(GenerateTemperature, PositiveGenerateTemperature) {
     Temperature_Sensor temperatureSensor;
     float min = 10;
@@ -16,6 +24,11 @@ TEST(GenerateTemperature, PositiveGenerateTemperature) {
     EXPECT_LE(testedTemperature, max);
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
 TEST(GenerateTemperature, NegativeGenerateTemperature) {
     Temperature_Sensor temperatureSensor;
     float min = -40;

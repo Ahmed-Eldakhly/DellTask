@@ -15,6 +15,7 @@
 	<vector>
 
 1663331166 source:d:\dell task\server-side\main.cpp
+	"Application_Release_Config.h"
 	<iostream>
 	"limits.h"
 	"Temperature_Sensor.h"
