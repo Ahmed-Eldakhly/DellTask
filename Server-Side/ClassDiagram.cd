@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Test classes">
+    <Position X="11.225" Y="0.5" Height="0.452" Width="0.933" />
+  </Comment>
+  <Class Name="Clients">
+    <Position X="6" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACgAAAACACCACAAAACAAAAAAAACAAAAAiACACA=</HashCode>
+      <FileName>Clients.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data_Parser_And_Converter">
+    <Position X="6" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAgAAAAAAAAAAAAAAAAAQgAAAA=</HashCode>
+      <FileName>Data_Parser_And_Converter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data_Parser_And_Converter_Tests">
+    <Position X="11.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data_Parser_And_Converter_Tests.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sensor">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEEQAAAAAAAAACAAAAAAAEEAAACQAAACAEAAA=</HashCode>
+      <FileName>Sensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Network_abstract">
+    <Position X="3.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAEAAAAAAAgACAgAAAAAEAA=</HashCode>
+      <FileName>Network_abstract.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Socket_Communication">
+    <Position X="3.5" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAACAAAAAAAgAACgAAAAAAAA=</HashCode>
+      <FileName>Socket_Communication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Temperature_Sensor">
+    <Position X="0.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAACAA=</HashCode>
+      <FileName>Temperature_Sensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Temperature_Sensor_Tests">
+    <Position X="9.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Temperature_Sensor_Tests.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

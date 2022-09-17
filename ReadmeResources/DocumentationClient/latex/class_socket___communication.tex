@@ -1,0 +1,105 @@
+\hypertarget{class_socket___communication}{}\section{Socket\+\_\+\+Communication Class Reference}
+\label{class_socket___communication}\index{Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}}
+Inheritance diagram for Socket\+\_\+\+Communication\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_socket___communication}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_socket___communication_a9a405d090685fd6ba13bd857802bd591}{listen\+To\+Specific\+Server}} (std\+::map$<$ std\+::string, std\+::string $>$ protocol\+Parameters)
+\item 
+bool \mbox{\hyperlink{class_socket___communication_a4f1352ef7ad4831c6d14472865907429}{establish\+Connection}} (std\+::map$<$ std\+::string, std\+::string $>$ protocol\+Parameters)
+\item 
+bool \mbox{\hyperlink{class_socket___communication_ab2983a743859588e4a1ca18a710d3fc9}{get\+Payload\+From\+Network}} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_socket___communication}{Socket\+\_\+\+Communication}} $\ast$ \mbox{\hyperlink{class_socket___communication_a7e156c8010a798636b637262adb1e38f}{get\+Inestance}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_socket___communication_ab79b3366e67b983a5b8b7e510143048c}\label{class_socket___communication_ab79b3366e67b983a5b8b7e510143048c}} 
+std\+::mutex {\bfseries mtx}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_socket___communication_a4f1352ef7ad4831c6d14472865907429}\label{class_socket___communication_a4f1352ef7ad4831c6d14472865907429}} 
+\index{Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}!establish\+Connection@{establish\+Connection}}
+\index{establish\+Connection@{establish\+Connection}!Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}}
+\subsubsection{\texorpdfstring{establish\+Connection()}{establishConnection()}}
+{\footnotesize\ttfamily bool Socket\+\_\+\+Communication\+::establish\+Connection (\begin{DoxyParamCaption}\item[{std\+::map$<$ std\+::string, std\+::string $>$}]{protocol\+Parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em protocol\+Parameters} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_network__abstract}{Network\+\_\+abstract}}.
+
+\mbox{\Hypertarget{class_socket___communication_a7e156c8010a798636b637262adb1e38f}\label{class_socket___communication_a7e156c8010a798636b637262adb1e38f}} 
+\index{Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}!get\+Inestance@{get\+Inestance}}
+\index{get\+Inestance@{get\+Inestance}!Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}}
+\subsubsection{\texorpdfstring{get\+Inestance()}{getInestance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_socket___communication}{Socket\+\_\+\+Communication}} $\ast$ Socket\+\_\+\+Communication\+::get\+Inestance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket___communication_ab2983a743859588e4a1ca18a710d3fc9}\label{class_socket___communication_ab2983a743859588e4a1ca18a710d3fc9}} 
+\index{Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}!get\+Payload\+From\+Network@{get\+Payload\+From\+Network}}
+\index{get\+Payload\+From\+Network@{get\+Payload\+From\+Network}!Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}}
+\subsubsection{\texorpdfstring{get\+Payload\+From\+Network()}{getPayloadFromNetwork()}}
+{\footnotesize\ttfamily bool Socket\+\_\+\+Communication\+::get\+Payload\+From\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_network__abstract}{Network\+\_\+abstract}}.
+
+\mbox{\Hypertarget{class_socket___communication_a9a405d090685fd6ba13bd857802bd591}\label{class_socket___communication_a9a405d090685fd6ba13bd857802bd591}} 
+\index{Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}!listen\+To\+Specific\+Server@{listen\+To\+Specific\+Server}}
+\index{listen\+To\+Specific\+Server@{listen\+To\+Specific\+Server}!Socket\+\_\+\+Communication@{Socket\+\_\+\+Communication}}
+\subsubsection{\texorpdfstring{listen\+To\+Specific\+Server()}{listenToSpecificServer()}}
+{\footnotesize\ttfamily void Socket\+\_\+\+Communication\+::listen\+To\+Specific\+Server (\begin{DoxyParamCaption}\item[{std\+::map$<$ std\+::string, std\+::string $>$}]{protocol\+Parameters }\end{DoxyParamCaption})}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em protocol\+Parameters} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Dell Task/\+Client-\/\+Side/Socket\+\_\+\+Communication.\+h\item 
+D\+:/\+Dell Task/\+Client-\/\+Side/Socket\+\_\+\+Communication.\+cpp\end{DoxyCompactItemize}
