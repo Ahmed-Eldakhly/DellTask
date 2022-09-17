@@ -139,23 +139,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application_Functions_Tests.cpp" />
+    <ClCompile Include="Data_Parser_And_Converter_Tests.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="Servers.cpp" />
     <ClCompile Include="Data_Parser_And_Converter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Network_abstract.cpp" />
     <ClCompile Include="Socket_Communication.cpp" />
+    <ClCompile Include="Temperature_Server_Tests.cpp" />
     <ClCompile Include="Temperature_Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application_Functions_Tests.h" />
+    <ClInclude Include="Application_Release_Config.h" />
+    <ClInclude Include="Data_Parser_And_Converter_Tests.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="Servers.h" />
     <ClInclude Include="Data_Parser_And_Converter.h" />
     <ClInclude Include="Network_abstract.h" />
     <ClInclude Include="Socket_Communication.h" />
     <ClInclude Include="Socket_Communication_Config.h" />
+    <ClInclude Include="Temperature_Server_Tests.h" />
     <ClInclude Include="Temperature_Server.h" />
     <ClInclude Include="Temperature_Server_Config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

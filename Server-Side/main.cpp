@@ -37,6 +37,13 @@ std::condition_variable cv;
 #endif
 
 // main
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="argc"></param>
+/// <param name="argv"></param>
+/// <returns></returns>
 int main(int argc, char** argv)
 {
 #if MODE == TEST || MODE == TEST_AND_DEBUG

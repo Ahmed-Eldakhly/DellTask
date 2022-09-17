@@ -41,7 +41,14 @@ void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& tempe
 float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers);
 bool comparTimestamp(tm timestamp);
 
-// main
+//main
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="argc"></param>
+/// <param name="argv"></param>
+/// <returns></returns>
 int main(int argc, char** argv) {
 #if MODE == TEST || MODE == TEST_AND_DEBUG
     testing::InitGoogleTest(&argc, argv);
@@ -96,7 +103,12 @@ int main(int argc, char** argv) {
 }
 
 //application functions implementation
-// calculate average for each server logic
+
+/// <summary>
+//// calculate average for each server logic
+/// </summary>
+/// <param name="temperatureServers"></param>
+/// <param name="mtx"></param>
 void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
     std::unique_lock<std::mutex> lck(mtx);
     while (true) {
@@ -108,7 +120,12 @@ void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers
         cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_AVERAGE));
     }
 }
-// calculate average of all averages from all servers logic
+
+/// <summary>
+/// calculate average of all averages from all servers logic 
+/// </summary>
+/// <param name="temperatureServers"></param>
+/// <param name="mtx"></param>
 void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
     float accumulatedAverage = 0.0;
     std::unique_lock<std::mutex> lck(mtx);
@@ -120,7 +137,11 @@ void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& tempe
     }
 }
 
-// calculate average of all averages from all servers core logic to be tested
+/// <summary>
+/// calculate average of all averages from all servers core logic to be tested
+/// </summary>
+/// <param name="temperatureServers"></param>
+/// <returns></returns>
 float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers) {
     float totalSum = 0;
     int validNode = 0;
@@ -133,7 +154,11 @@ float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> 
     return totalSum / validNode;
 }
 
-// compare between two time stamps
+/// <summary>
+/// compare between two time stamps
+/// </summary>
+/// <param name="timestamp"></param>
+/// <returns></returns>
 bool comparTimestamp(tm timestamp) {
     time_t now = time(0);
     tm currentTimeStamp = *gmtime(&now);

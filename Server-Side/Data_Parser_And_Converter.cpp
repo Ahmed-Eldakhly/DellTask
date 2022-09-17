@@ -1,9 +1,18 @@
 #include "Data_Parser_And_Converter.h"
+/// <summary>
+/// 
+/// </summary>
 Data_Parser_And_Converter::Data_Parser_And_Converter() {
 
 }
 
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="delimiter"></param>
+/// <param name="keyValueDelimiter"></param>
+/// <param name="rawData"></param>
+/// <returns></returns>
 std::map<std::string, std::string> Data_Parser_And_Converter::parseDataThenConvertToMap(std::string delimiter, std::string keyValueDelimiter, std::string rawData) {
 
     std::map<std::string, std::string> parsedMap;
@@ -33,7 +42,12 @@ std::map<std::string, std::string> Data_Parser_And_Converter::parseDataThenConve
 
     return parsedMap;
 }
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="delimiter"></param>
+/// <param name="rawData"></param>
+/// <returns></returns>
 std::pair<std::string, std::string> Data_Parser_And_Converter::parseDataThenConvertToPair(std::string delimiter, std::string rawData) {
     std::pair<std::string, std::string> parsedPair;
     int delimiterLocation = rawData.find(delimiter);
@@ -43,7 +57,12 @@ std::pair<std::string, std::string> Data_Parser_And_Converter::parseDataThenConv
 
     return parsedPair;
 }
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="delimiter"></param>
+/// <param name="rawData"></param>
+/// <returns></returns>
 std::vector<std::string> Data_Parser_And_Converter::parseDataThenConvertToVector(std::string delimiter, std::string rawData) {
     std::vector<std::string> parsedVector;
     rawData = rawData.append(",");

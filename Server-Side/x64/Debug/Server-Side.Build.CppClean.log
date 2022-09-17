@@ -7,6 +7,9 @@ d:\dell task\server-side\x64\debug\network_abstract.obj
 d:\dell task\server-side\x64\debug\main.obj
 d:\dell task\server-side\x64\debug\data_parser_and_converter.obj
 d:\dell task\server-side\x64\debug\clients.obj
+d:\dell task\server-side\x64\debug\temperature_sensor_tests.obj
+d:\dell task\server-side\x64\debug\data_parser_and_converter_tests.obj
+d:\dell task\server-side\x64\debug\client-side.pdb
 d:\dell task\server-side\x64\debug\server-side.pdb
 d:\dell task\server-side\x64\debug\server-side.tlog\cl.command.1.tlog
 d:\dell task\server-side\x64\debug\server-side.tlog\cl.read.1.tlog

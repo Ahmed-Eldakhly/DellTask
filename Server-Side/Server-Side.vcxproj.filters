@@ -36,6 +36,12 @@
     <ClCompile Include="Clients.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Data_Parser_And_Converter_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Temperature_Sensor_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Network_abstract.h">
@@ -62,5 +68,19 @@
     <ClInclude Include="Temperature_Sensor_Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Application_Release_Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data_Parser_And_Converter_Tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Temperature_Sensor_Tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="doxygen.exe" />
   </ItemGroup>
 </Project>

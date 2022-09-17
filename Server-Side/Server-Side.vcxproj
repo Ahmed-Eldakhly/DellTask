@@ -142,21 +142,31 @@
   <ItemGroup>
     <ClCompile Include="Clients.cpp" />
     <ClCompile Include="Data_Parser_And_Converter.cpp" />
+    <ClCompile Include="Data_Parser_And_Converter_Tests.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Network_abstract.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="Socket_Communication.cpp" />
     <ClCompile Include="Temperature_Sensor.cpp" />
+    <ClCompile Include="Temperature_Sensor_Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application_Release_Config.h" />
     <ClInclude Include="Clients.h" />
     <ClInclude Include="Data_Parser_And_Converter.h" />
+    <ClInclude Include="Data_Parser_And_Converter_Tests.h" />
     <ClInclude Include="Temperature_Sensor_Config.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="Socket_Communication_Config.h" />
     <ClInclude Include="Network_abstract.h" />
     <ClInclude Include="Socket_Communication.h" />
     <ClInclude Include="Temperature_Sensor.h" />
+    <ClInclude Include="Temperature_Sensor_Tests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="doxygen.exe" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

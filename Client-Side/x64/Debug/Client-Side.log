@@ -1,1 +1,18 @@
-﻿  Client-Side.vcxproj -> D:\Dell Task\Server-Side\x64\Debug\Client-Side.exe
+﻿  Application_Functions_Tests.cpp
+D:\Dell Task\Client-Side\Application_Functions_Tests.cpp(22,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Dell Task\Client-Side\Application_Functions_Tests.cpp(35,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Dell Task\Client-Side\Application_Functions_Tests.cpp(36,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Dell Task\Client-Side\Application_Functions_Tests.cpp(62,28): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Dell Task\Client-Side\Application_Functions_Tests.cpp(67,28): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Data_Parser_And_Converter_Tests.cpp
+  Sensor.cpp
+D:\Dell Task\Client-Side\Sensor.cpp(34,32): error C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+D:\Dell Task\web-socket\easy-socket-master\include\masesk\EasySocket.hpp(128,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Dell Task\gtest\gtest.h(2338,1): warning C4005: 'TEST': macro redefinition
+D:\Dell Task\Client-Side\Application_Release_Config.h(5): message : see previous definition of 'TEST'
+D:\Dell Task\Client-Side\main.cpp(103,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Dell Task\Client-Side\main.cpp(139,28): error C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Network_abstract.cpp
+  Temperature_Server.cpp
+  Generating Code...
