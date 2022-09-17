@@ -37,13 +37,6 @@ std::condition_variable cv;
 #endif
 
 // main
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="argc"></param>
-/// <param name="argv"></param>
-/// <returns></returns>
 int main(int argc, char** argv)
 {
 #if MODE == TEST || MODE == TEST_AND_DEBUG
@@ -73,16 +66,24 @@ int main(int argc, char** argv)
             currentTemperature = temperatureSensor.getSensorReading();
             // form the server payload to be sent to each client
             payload = "ServerMacId:" + ServerMacId + ",Temperature:" + std::to_string(currentTemperature);
-
-            for (auto it = clients.begin(); it != clients.end(); ) {
-                clientInfo.find("clientChannel")->second = it->getClientChannel();
-                clientInfo.find("clientIp")->second = it->getClientIp();
-                clientInfo.find("clientPort")->second = it->getClientPort();
+            for (auto it = clients.cbegin(); it != clients.cend(); ) {
+                auto i = *it;
+                clientInfo.find("clientChannel")->second = i.getClientChannel();
+                clientInfo.find("clientIp")->second = i.getClientIp();
+                clientInfo.find("clientPort")->second = std::to_string(i.getClientPort());
                 if (socketConnection->sendPayloadThrowNetwork(clientInfo, payload))
-                    ++it;
-                else
+                    ++it; 
+                else{
+                    if (it+1 == clients.cend())
+                    {
+                        clients.erase(it++);
+                        break;
+                    }
                     clients.erase(it++);
+                    
+                }
             }
+
             cv.wait_for(lck, std::chrono::seconds(1));
         }
 
@@ -94,6 +95,7 @@ int main(int argc, char** argv)
     while (true) {
         if (socketConnection->establishConnection()) {
             socketDataConvertedToMap = Data_Parser_And_Converter::parseDataThenConvertToMap("," , ":" , socketConnection->getPayload());
+            
             bool clientIsExist = false;
             std::string newClientMacId = socketDataConvertedToMap.find("clientMacId")->second;
             for (auto it = clients.begin(); it != clients.end(); it++)

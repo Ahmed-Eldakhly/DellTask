@@ -5,7 +5,7 @@
 #include "Network_abstract.h"
 #include "Socket_Communication.h"
 #include "Data_Parser_And_Converter.h"
-#include "..\web-socket\easy-socket-master\include\masesk\EasySocket.hpp"
+#include "../web-socket/easy-socket-master/include/masesk/EasySocket.hpp"
 #include <map>
 #include <vector>
 #include <thread>
@@ -27,7 +27,7 @@
 #define PERIODIC_TIME_TO_GET_SENSOR_AVERAGE                 5
 #define PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE    5
 #define MAXIMUM_TIME_BEFORE_DROP_THE_SERVER                 10
-#define timegm                                              _mkgmtime
+//#define timegm                                              _mkgmtime
 #define TEST_OR_BUILD 0// 1 for Test - 0 for build
 
 // structs and enums
@@ -37,18 +37,11 @@ std::condition_variable cv;
 
 // application function prototypes
 void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers , std::mutex& mtx);
-void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx);
+//void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx);
 float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers);
 bool comparTimestamp(tm timestamp);
 
-//main
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="argc"></param>
-/// <param name="argv"></param>
-/// <returns></returns>
+// main
 int main(int argc, char** argv) {
 #if MODE == TEST || MODE == TEST_AND_DEBUG
     testing::InitGoogleTest(&argc, argv);
@@ -58,18 +51,37 @@ int main(int argc, char** argv) {
 
 #if MODE != TEST
     std::map<std::string, std::string> clientInfo;
-    std::vector<Temperature_Sensor> temperatureServers;
+    std::vector<Temperature_Sensor> temperatureServers = {};
     std::mutex mtx;
     Socket_Communication* socketConnection = socketConnection->getInestance();
     // try to connect to servers inside new threads
     std::map<std::string, std::string> serverInfo1 = { {"serverChannel" , "broadcastingChannel"} , {"serverIp" , "127.0.0.1"} , {"serverPort" , "9000"} };
     std::thread serverThread1(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo1);
-    std::map<std::string, std::string> serverInfo2 = { {"serverChannel" , "broadcastingChannel"} , {"serverIp" , "127.0.0.1"} , {"serverPort" , "9500"} };
+    std::map<std::string, std::string> serverInfo2 = { {"serverChannel" , "broadcastingChannel2"} , {"serverIp" , "127.0.0.1"} , {"serverPort" , "9500"} };
     std::thread serverThread2(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo2);
     // calculate temperature average for  each server
-    std::thread calculateTemperetureAvgThread(calculateTemperetureAvg, temperatureServers, mtx);
+    std::thread calculateTemperetureAvgThread([&] (){
+        std::unique_lock<std::mutex> lck(mtx);
+        while (true) {
+            int sizeOfNodes = temperatureServers.size();
+            for (int i = 0; i < sizeOfNodes; i++) {
+                temperatureServers[i].calculateAverageTemperature();
+                std::cout << "Avgrage of the temperature server: " << temperatureServers[i].getSensorSerialNumber() << " = " << temperatureServers[i].getAverageTemperature() << std::endl;
+            }
+            cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_AVERAGE));
+        }
+    });
     // calculate avg of all avgs from all active servers
-    std::thread calculateAccumelatedTemperetureAvgThread(calculateTemperetureAccumelativeAvgs, temperatureServers, mtx);
+    std::thread calculateAccumelatedTemperetureAvgThread([&] (){
+        float accumulatedAverage = 0.0;
+        std::unique_lock<std::mutex> lck(mtx);
+
+        while (true) {
+            float accumulatedAverage = calculateTemperetureAccumelativeCoreLogic(temperatureServers);
+            std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
+            cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
+        }
+    });
     // main logic to get all new readings from all servers
     while (true) {
         socketConnection->getPayloadFromNetwork();
@@ -103,12 +115,7 @@ int main(int argc, char** argv) {
 }
 
 //application functions implementation
-
-/// <summary>
-//// calculate average for each server logic
-/// </summary>
-/// <param name="temperatureServers"></param>
-/// <param name="mtx"></param>
+// calculate average for each server logic
 void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
     std::unique_lock<std::mutex> lck(mtx);
     while (true) {
@@ -120,28 +127,19 @@ void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers
         cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_AVERAGE));
     }
 }
+// calculate average of all averages from all servers logic
+// void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
+//     float accumulatedAverage = 0.0;
+//     std::unique_lock<std::mutex> lck(mtx);
 
-/// <summary>
-/// calculate average of all averages from all servers logic 
-/// </summary>
-/// <param name="temperatureServers"></param>
-/// <param name="mtx"></param>
-void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
-    float accumulatedAverage = 0.0;
-    std::unique_lock<std::mutex> lck(mtx);
+//     while (true) {
+//         float accumulatedAverage = calculateTemperetureAccumelativeCoreLogic(temperatureServers);
+//         std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
+//         cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
+//     }
+// }
 
-    while (true) {
-        float accumulatedAverage = calculateTemperetureAccumelativeCoreLogic(temperatureServers);
-        std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
-        cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
-    }
-}
-
-/// <summary>
-/// calculate average of all averages from all servers core logic to be tested
-/// </summary>
-/// <param name="temperatureServers"></param>
-/// <returns></returns>
+// calculate average of all averages from all servers core logic to be tested
 float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers) {
     float totalSum = 0;
     int validNode = 0;
@@ -151,14 +149,10 @@ float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> 
             totalSum += item.getAverageTemperature();
         }
     }
-    return totalSum / validNode;
+    return validNode > 0 ? totalSum / validNode : 0.0;
 }
 
-/// <summary>
-/// compare between two time stamps
-/// </summary>
-/// <param name="timestamp"></param>
-/// <returns></returns>
+// compare between two time stamps
 bool comparTimestamp(tm timestamp) {
     time_t now = time(0);
     tm currentTimeStamp = *gmtime(&now);

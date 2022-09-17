@@ -163,11 +163,6 @@
     <ClInclude Include="Temperature_Sensor.h" />
     <ClInclude Include="Temperature_Sensor_Tests.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="doxygen.exe" />
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

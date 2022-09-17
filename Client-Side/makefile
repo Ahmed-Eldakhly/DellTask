@@ -1,7 +1,7 @@
-BINARY=server_main
+BINARY=client_main
 CODEDIRS=. ./src ../web-socket/easy-socket-master
-THREAD_AND_TEST= -pthread -L"ws2_32" #-lgtest 
-INCDIRS=. ./include ../web-socket/easy-socket-master/include ../forest_fire_forecasting_server/gtest ../forest_fire_forecasting_server/gtest/internal ../forest_fire_forecasting_server/gtest/internal/custom
+THREAD_AND_TEST= -pthread -lgtest 
+INCDIRS=. ./include ../web-socket/easy-socket-master/include ../gtest ../gtest/internal ../gtest/internal/custom
 
 CC=g++
 # generate files that encode make rules for the .h dependencies

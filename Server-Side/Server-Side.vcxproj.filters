@@ -78,9 +78,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="ClassDiagram.cd" />
-    <None Include="doxygen.exe" />
-  </ItemGroup>
 </Project>

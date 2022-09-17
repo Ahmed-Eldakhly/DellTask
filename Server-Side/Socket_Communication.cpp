@@ -6,46 +6,30 @@
 
 using namespace masesk;
 
-/// <summary>
-/// 
-/// </summary>
 Socket_Communication* Socket_Communication::socketConnectionInstance = nullptr;
 
-/// <summary>
-/// 
-/// </summary>
 Socket_Communication::Socket_Communication() {
 
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="receivedClientData"></param>
-/// <param name="data"></param>
 static void getDataFromClient(std::string& receivedClientData, const std::string& data) {
     receivedClientData = data;
+    
 }
-
-/// <summary>
-/// 
-/// </summary>
-/// <returns></returns>
+//done
 Socket_Communication* Socket_Communication::getInestance() {
     if (!socketConnectionInstance)
         socketConnectionInstance = new Socket_Communication();
     return socketConnectionInstance;
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <returns></returns>
 bool Socket_Communication::establishConnection() {
     EasySocket socketManager;
     std::string receivedClientData;
     try {
         socketManager.socketListen(SERVER_CHANNEL, SERVER_PORT, &getDataFromClient, receivedClientData);
+        std::cout<<"receivedClientData  = "<< receivedClientData<<std::endl;
+        this->setPayload(receivedClientData);
         return true;
     }
     catch (...) {
@@ -53,12 +37,6 @@ bool Socket_Communication::establishConnection() {
     }
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="protocolParameters"></param>
-/// <param name="payload"></param>
-/// <returns></returns>
 bool Socket_Communication::sendPayloadThrowNetwork(std::map<std::string, std::string> protocolParameters, std::string payload) {
 
     EasySocket socketManager;

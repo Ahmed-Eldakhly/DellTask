@@ -3,42 +3,26 @@
 #include <iostream>
 #include <string>
 #include "../web-socket/easy-socket-master/include/masesk/EasySocket.hpp"
+#include <condition_variable>
 
 using namespace masesk;
 
 Socket_Communication* Socket_Communication::socketConnectionInstance = nullptr;
 
-/// <summary>
-/// 
-/// </summary>
 Socket_Communication::Socket_Communication() {
 
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="receivedClientData"></param>
-/// <param name="data"></param>
 static void getDataFromServer(std::string& receivedClientData, const std::string& data) {
     receivedClientData = data;
 }
-
-/// <summary>
-/// 
-/// </summary>
-/// <returns></returns>
+//done
 Socket_Communication* Socket_Communication::getInestance() {
     if (!socketConnectionInstance)
         socketConnectionInstance = new Socket_Communication();
     return socketConnectionInstance;
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="protocolParameters"></param>
-/// <returns></returns>
 bool Socket_Communication::establishConnection(std::map<std::string, std::string> protocolParameters) {
     EasySocket socketManager;;
     std::string serverChannel = protocolParameters.find("serverChannel")->second;
@@ -57,10 +41,6 @@ bool Socket_Communication::establishConnection(std::map<std::string, std::string
     }
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <returns></returns>
 bool Socket_Communication::getPayloadFromNetwork() {
     EasySocket socketManager;
     try {
@@ -74,10 +54,7 @@ bool Socket_Communication::getPayloadFromNetwork() {
     }
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="protocolParameters"></param>
+
 void Socket_Communication::listenToSpecificServer(std::map<std::string, std::string> protocolParameters) {
     std::string serverChannel = protocolParameters.find("serverChannel")->second;
     std::string serverIp = protocolParameters.find("serverIp")->second;

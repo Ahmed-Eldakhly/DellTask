@@ -7,4 +7,4 @@
 #define TEST_AND_DEBUG	2
 #define RELEASE			3
 /** *********************************** **/
-#define MODE		TEST_AND_DEBUG
+#define MODE		TEST

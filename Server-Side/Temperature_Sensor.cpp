@@ -3,26 +3,16 @@
 #include "Temperature_Sensor_Config.h"
 #include <condition_variable>
 
-/// <summary>
-/// 
-/// </summary>
+
 Temperature_Sensor::Temperature_Sensor() {
     sensorType = "Temperature";  
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="min"></param>
-/// <param name="max"></param>
-/// <returns></returns>
+
 float Temperature_Sensor::generateTemperature(int min, int max) {
     return (static_cast <float> (rand()) / RAND_MAX) * static_cast <float> (max - min) + min;
 }
 
-/// <summary>
-/// 
-/// </summary>
 void Temperature_Sensor::generateTemperaturePeriodically() {
 
     float newTemperature;
