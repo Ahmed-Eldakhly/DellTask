@@ -5,18 +5,22 @@
 #include "Network_abstract.h"
 #include "Socket_Communication.h"
 #include "Data_Parser_And_Converter.h"
+#include "Data_Parser_And_Converter_Tests.h"
 #include "Clients.h"
-#include "vector"
+#include "Application_Release_Config.h"
+#include "../gtest/gtest.h"
+#include <vector>
 #include <map>
 #include <string>
 #include <thread>
 #include <condition_variable>
 #include <utility>
+
 // #include <gtest/gtest.h>
 
 
 // #define
-#define TEST_OR_BUILD 0// 1 for Test - 0 for build
+
 
 // structs and enums
 
@@ -27,10 +31,12 @@ std::condition_variable cv;
 // main
 int main(int argc, char** argv)
 {
-#if TEST_OR_BUILD
+#if MODE == TEST || MODE == TEST_AND_DEBUG
     testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-#else
+    Data_Parser_And_Converter_Tests converterTests();
+#endif
+
+#if MODE != TEST
     std::vector<Clients> clients;
 
     Temperature_Sensor temperatureSensor;

@@ -14,12 +14,11 @@ float Temperature_Sensor::generateTemperature(int min, int max) {
 }
 
 void Temperature_Sensor::generateTemperaturePeriodically() {
-    
-    std::condition_variable cv;
 
     float newTemperature;
     std::mutex mtx;
     std::unique_lock<std::mutex> uni_lck(mtx);
+    std::condition_variable cv;
 
     while (true) {
         newTemperature = generateTemperature(MIN_TEMPERATURE_SENSOR, MAX_TEMPERATURE_SENSOR);
