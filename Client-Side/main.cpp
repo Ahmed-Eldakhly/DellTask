@@ -20,6 +20,7 @@
 #define ATTRIBUTE                                           "Temperature"
 #define PERIODIC_TIME_TO_GET_SENSOR_AVERAGE                 5
 #define PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE    5
+#define MAXIMUM_TIME_BEFORE_DROP_THE_SERVER                 10
 #define timegm                                              _mkgmtime
 #define TEST_OR_BUILD 0// 1 for Test - 0 for build
 
@@ -29,7 +30,8 @@
 std::condition_variable cv;
 
 // application function prototypes
-float calculateAccumelatedAverages(std::vector<Temperature_Sensor>& temperatureServers);
+void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers , std::mutex& mtx);
+void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx);
 bool comparTimestamp(tm timestamp);
 
 // main
@@ -43,34 +45,16 @@ int main(int argc, char** argv) {
     std::vector<Temperature_Sensor> temperatureServers;
     std::mutex mtx;
     Socket_Communication* socketConnection = socketConnection->getInestance();
+    // try to connect to servers inside new threads
     std::map<std::string, std::string> serverInfo1 = { {"serverChannel" , "broadcastingChannel"} , {"serverIp" , "127.0.0.1"} , {"serverPort" , "9000"} };
-    std::thread nodeThread1(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo1);
+    std::thread serverThread1(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo1);
     std::map<std::string, std::string> serverInfo2 = { {"serverChannel" , "broadcastingChannel"} , {"serverIp" , "127.0.0.1"} , {"serverPort" , "9500"} };
-    std::thread nodeThread2(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo2);
-
-    std::thread calculateTemperetureAvgThread([&]() {
-        std::unique_lock<std::mutex> lck(mtx);
-        while (true) {
-            int sizeOfNodes = temperatureServers.size();
-            for (int i = 0; i < sizeOfNodes; i++) {
-                temperatureServers[i].calculateAverageTemperature();
-                std::cout << "Avgrage of Node " << temperatureServers[i].getSensorSerialNumber() << " = " << temperatureServers[i].getAverageTemperature() << std::endl;
-            }
-            cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_AVERAGE));
-        }
-    });
-
-    std::thread calculateAccumelatedTemperetureAvgThread([&]() {
-        float accumulatedAverage = 0.0;
-        std::unique_lock<std::mutex> lck(mtx);
-
-        while (true) {
-            accumulatedAverage = calculateAccumelatedAverages(temperatureServers);
-            std::cout << "Accumulated Average of Nodes = " << accumulatedAverage << std::endl;
-            cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
-        }
-    });
-
+    std::thread serverThread2(&Socket_Communication::listenToSpecificServer, socketConnection, serverInfo2);
+    // calculate temperature average for  each server
+    std::thread calculateTemperetureAvgThread(calculateTemperetureAvg, temperatureServers, mtx);
+    // calculate avg of all avgs from all active servers
+    std::thread calculateAccumelatedTemperetureAvgThread(calculateTemperetureAccumelativeAvgs, temperatureServers, mtx);
+    // main logic to get all new readings from all servers
     while (true) {
         socketConnection->getPayloadFromNetwork();
         std::map<std::string, std::string> responsPayload = Data_Parser_And_Converter::parseDataThenConvertToMap(",", ":", socketConnection->getPayload());
@@ -93,8 +77,8 @@ int main(int argc, char** argv) {
         }
     }
 
-    nodeThread1.join();
-    nodeThread2.join();
+    serverThread1.join();
+    serverThread2.join();
     calculateTemperetureAvgThread.join();
     calculateAccumelatedTemperetureAvgThread.join();
 
@@ -103,24 +87,45 @@ int main(int argc, char** argv) {
 }
 
 //application functions implementation
-float calculateAccumelatedAverages(std::vector<Temperature_Sensor>& temperatureServers) {
-    float totalSum = 0;
-    int validNode = 0;
-    for (auto item : temperatureServers) {
-        if (comparTimestamp(item.getSensorLastReadingTimestamp())) {
-            validNode++;
-            totalSum += item.getAverageTemperature();
+// calculate average for each server logic
+void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
+    std::unique_lock<std::mutex> lck(mtx);
+    while (true) {
+        int sizeOfNodes = temperatureServers.size();
+        for (int i = 0; i < sizeOfNodes; i++) {
+            temperatureServers[i].calculateAverageTemperature();
+            std::cout << "Avgrage of the temperature server: " << temperatureServers[i].getSensorSerialNumber() << " = " << temperatureServers[i].getAverageTemperature() << std::endl;
         }
+        cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_AVERAGE));
     }
-    float acc = totalSum / validNode;
-    float accumulatedAverage = acc > 0.0 ? acc : 0.0;
-    return accumulatedAverage;
 }
+// calculate average of all averages from all servers logic
+void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
+    float accumulatedAverage = 0.0;
+    float totalSum;
+    int validNode;
+    std::unique_lock<std::mutex> lck(mtx);
 
+    while (true) {
+        totalSum = 0;
+        validNode = 0;
+        for (auto item : temperatureServers) {
+            if (comparTimestamp(item.getSensorLastReadingTimestamp())) {
+                validNode++;
+                totalSum += item.getAverageTemperature();
+            }
+        }
+        float acc = totalSum / validNode;
+        accumulatedAverage = acc > 0.0 ? acc : 0.0;
+        std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
+        cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
+    }
+}
+// compare between two time stamps
 bool comparTimestamp(tm timestamp) {
     time_t now = time(0);
     tm currentTimeStamp = *gmtime(&now);
-    if (difftime(timegm(&currentTimeStamp), timegm(&timestamp)) > 10) 
+    if (difftime(timegm(&currentTimeStamp), timegm(&timestamp)) > MAXIMUM_TIME_BEFORE_DROP_THE_SERVER)
         return false;
     return true;
 }

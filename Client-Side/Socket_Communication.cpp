@@ -70,11 +70,11 @@ void Socket_Communication::listenToSpecificServer(std::map<std::string, std::str
             cv.wait_for(lck, std::chrono::seconds(5));
         }
         else {
-            std::cout << "Conncted to server : " << serverIp << ":" << serverPort << std::endl;
+            std::cout << "Conncted to server: " << serverIp << ":" << serverPort << std::endl;
             break;
         }
     }
     if (triersFlag == 5) 
-        std::cout << "The node with channel name: " << serverChannel << " and ip with port : " << serverIp << ":" << serverPort << " is not available now" << std::endl;
+        std::cout << "The node with channel name: " << serverChannel << " and url : " << serverIp << ":" << serverPort << " is not available now" << std::endl;
 }
 
