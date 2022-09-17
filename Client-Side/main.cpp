@@ -1,5 +1,6 @@
 // headers
 #include <iostream>
+#include "Application_Release_Config.h"
 #include "Temperature_Server.h"
 #include "Network_abstract.h"
 #include "Socket_Communication.h"
@@ -12,7 +13,12 @@
 #include <chrono>
 #include <condition_variable>
 #include <ctime> 
-//#include <gtest/gtest.h>
+
+#if MODE == TEST || MODE == TEST_AND_DEBUG
+#include "Data_Parser_And_Converter_Tests.h"
+#include "../gtest/gtest.h"
+#include "Temperature_Server_Tests.h"
+#endif
 
 
 // #define
@@ -32,15 +38,18 @@ std::condition_variable cv;
 // application function prototypes
 void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers , std::mutex& mtx);
 void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx);
+float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers);
 bool comparTimestamp(tm timestamp);
 
 // main
 int main(int argc, char** argv) {
-
-#if TEST_OR_BUILD
+#if MODE == TEST || MODE == TEST_AND_DEBUG
     testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-#else
+    Data_Parser_And_Converter_Tests converterTests;
+    Temperature_Server_Tests temperatureSensorTest;
+#endif
+
+#if MODE != TEST
     std::map<std::string, std::string> clientInfo;
     std::vector<Temperature_Sensor> temperatureServers;
     std::mutex mtx;
@@ -102,24 +111,28 @@ void calculateTemperetureAvg(std::vector<Temperature_Sensor>& temperatureServers
 // calculate average of all averages from all servers logic
 void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& temperatureServers, std::mutex& mtx) {
     float accumulatedAverage = 0.0;
-    float totalSum;
-    int validNode;
     std::unique_lock<std::mutex> lck(mtx);
 
     while (true) {
-        totalSum = 0;
-        validNode = 0;
-        for (auto item : temperatureServers) {
-            if (comparTimestamp(item.getSensorLastReadingTimestamp())) {
-                validNode++;
-                totalSum += item.getAverageTemperature();
-            }
-        }
-        float accumulatedAverage = totalSum / validNode;
+        float accumulatedAverage = calculateTemperetureAccumelativeCoreLogic(temperatureServers);
         std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
         cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
     }
 }
+
+// calculate average of all averages from all servers core logic to be tested
+float calculateTemperetureAccumelativeCoreLogic(std::vector<Temperature_Sensor> temperatureServers) {
+    float totalSum = 0;
+    int validNode = 0;
+    for (auto item : temperatureServers) {
+        if (comparTimestamp(item.getSensorLastReadingTimestamp())) {
+            validNode++;
+            totalSum += item.getAverageTemperature();
+        }
+    }
+    return totalSum / validNode;
+}
+
 // compare between two time stamps
 bool comparTimestamp(tm timestamp) {
     time_t now = time(0);
