@@ -115,8 +115,7 @@ void calculateTemperetureAccumelativeAvgs(std::vector<Temperature_Sensor>& tempe
                 totalSum += item.getAverageTemperature();
             }
         }
-        float acc = totalSum / validNode;
-        accumulatedAverage = acc > 0.0 ? acc : 0.0;
+        float accumulatedAverage = totalSum / validNode;
         std::cout << "Accumulated Average of temperature servers = " << accumulatedAverage << std::endl;
         cv.wait_for(lck, std::chrono::seconds(PERIODIC_TIME_TO_GET_SENSOR_ACCUMELATIVE_AVERAGE));
     }

@@ -1,20 +1,27 @@
 // headers
 #include <iostream>
+#include "Application_Release_Config.h"
+
+#if MODE != TEST
 #include "limits.h"
 #include "Temperature_Sensor.h"
 #include "Network_abstract.h"
 #include "Socket_Communication.h"
 #include "Data_Parser_And_Converter.h"
-#include "Data_Parser_And_Converter_Tests.h"
 #include "Clients.h"
-#include "Application_Release_Config.h"
-#include "../gtest/gtest.h"
 #include <vector>
 #include <map>
 #include <string>
 #include <thread>
 #include <condition_variable>
 #include <utility>
+#endif
+
+#if MODE == TEST || MODE == TEST_AND_DEBUG
+#include "Data_Parser_And_Converter_Tests.h"
+#include "../gtest/gtest.h"
+#include "Temperature_Sensor_Tests.h"
+#endif
 
 // #include <gtest/gtest.h>
 
@@ -25,15 +32,17 @@
 // structs and enums
 
 // global variables
+#if MODE != TEST
 std::condition_variable cv;
-
+#endif
 
 // main
 int main(int argc, char** argv)
 {
 #if MODE == TEST || MODE == TEST_AND_DEBUG
     testing::InitGoogleTest(&argc, argv);
-    Data_Parser_And_Converter_Tests converterTests();
+    Data_Parser_And_Converter_Tests converterTests;
+    Temperature_Sensor_Tests temperatureSensorTest;
 #endif
 
 #if MODE != TEST
